@@ -24,13 +24,13 @@ public class TestResultLoggerExtension implements TestWatcher, AfterAllCallback 
 
     @Override
     public void testSuccessful(ExtensionContext context) {
-        logger.info("WebsitesTitleTests \"{}\" passed", context.getDisplayName());
+        logger.info("Test \"{}\" passed", context.getDisplayName());
         testResultsStatus.add(TestResultStatus.SUCCESSFUL);
     }
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
-        logger.error("WebsitesTitleTests \"{}\" failed", context.getDisplayName(), cause);
+        logger.error("Test \"{}\" failed", context.getDisplayName(), cause);
         testResultsStatus.add(TestResultStatus.FAILED);
     }
 
@@ -38,7 +38,7 @@ public class TestResultLoggerExtension implements TestWatcher, AfterAllCallback 
     public void afterAll(ExtensionContext context) {
         Map<TestResultStatus, Long> summary = testResultsStatus.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        logger.info("WebsitesTitleTests summary for {} {}", context.getDisplayName(), summary.toString());
+        logger.info("Test result summary for {} {}", context.getDisplayName(), summary.toString());
     }
 
 }
